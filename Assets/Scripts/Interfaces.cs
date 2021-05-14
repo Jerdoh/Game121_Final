@@ -3,5 +3,5 @@ using System.Collections;
 
 public interface IDamage
 {
-    void TakeDamage();
+    void TakeDamage(int damage);
 }

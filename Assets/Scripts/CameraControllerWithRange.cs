@@ -7,7 +7,7 @@ public class CameraControllerWithRange : MonoBehaviour
    private float _mouseMovement = 5.0f; //mouse sensitivity of 5
 
    private Transform parent; //reference to our parent object (the model)
-   private Transform camera; //reference to true object (FPS camera)
+   private new Transform camera; //reference to true object (FPS camera)
 
    float cameraClamp = 0f; //Y axis clamp for 90/-90 degree stop
 

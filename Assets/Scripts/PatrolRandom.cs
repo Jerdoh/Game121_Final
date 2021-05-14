@@ -5,6 +5,11 @@ using System.Collections;
 
 public class PatrolRandom : MonoBehaviour {
 
+    public GameObject player;
+    private Transform playerPosition;
+    private int playerHealth;
+    private int rangeToAttack = 10;
+
     public Transform[] points;
     private int destPoint = 0;
     private int prevDestPoint = 0;
@@ -39,9 +44,6 @@ public class PatrolRandom : MonoBehaviour {
         }
         prevDestPoint = destPoint;
         destPoint = (nextDest) % points.Length;
-
-        Debug.Log("Previous Dest: " + prevDestPoint);
-        Debug.Log("Dest: " + destPoint);
     }
 
     int PickRandomDest(int min, int max) {
@@ -50,9 +52,16 @@ public class PatrolRandom : MonoBehaviour {
     }
 
     void Update () {
-        // Choose the next destination point when the agent gets
-        // close to the current one.
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        playerHealth = player.GetComponent<Player>().health;
+        playerPosition = player.transform;
+        
+        if((Vector3.Distance(playerPosition.position, transform.position) < rangeToAttack) && playerHealth > 0) {
+            player.GetComponent<Player>().TakeDamage(1);
+        } else {
+            // Choose the next destination point when the agent gets
+            // close to the current one.
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
             GotoNextPoint();
+        }
     }
 }
